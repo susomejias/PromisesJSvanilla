@@ -9,19 +9,29 @@
 
 let init = function(){
 
+    // demostración fetchApi
+    //fetchApi();
+
+
     // Espera que la promise envie la respuesta y la muestra por el then() cuando sea correcta
     // o por el catch() cuando sea incorrecta.
     apiRequest().then((resolve)=>{
-          console.log(resolve.json());
+          console.log(resolve.results[0]);
         }).catch((error)=>{
           console.log(error);
         });
 
     // Asigno un texto a un elemento html mientra recibo los datos de la API.
-    document.getElementById("show").textContent = "Mostrando h1";
+    setTimeout(function(){
+      document.getElementById("show").textContent = "Mostrando h1";
+    },1500);
+
 
 }
 
+/*
+* Realizando una Promise para obtener un recurso mediante $.getJSON()
+*/
 let apiRequest = function(){
   // creamos una Promise con su objeto predefinido y sus parámetros resolve y reject.
   return new Promise((resolve, reject)=>{
@@ -32,10 +42,10 @@ let apiRequest = function(){
     if (!isError){
       console.log("Realizando petición");
       setTimeout(function(){
-        // realizamos la petición a la API con fetch.
-        let data = fetch("https://randomuser.me/api/")
-        // Resultado que se enviará cuando la Promise sea correcta.
-        resolve(data);
+        // realizamos la petición a la API con $.getJSON.
+          resolve($.getJSON("https://randomuser.me/api/"));// Resultado que se enviará cuando la Promise sea correcta.
+
+
       },3500);
     }else{
        // Resultado que se enviará cuando la Promise sea incorrecta.
@@ -45,6 +55,15 @@ let apiRequest = function(){
   });
 }
 
-window.addEventListener("load", init);
+/*
+* Realizando petición a un recurso mediante la fetch Api.
+*/
+let fetchApi = function(){
+  fetch("https://randomuser.me/api/")
+    .then(response => response.json())
+    .then(jsonData => console.log(jsonData.results[0]))
+}
+
+$(init);
 
 }
