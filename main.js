@@ -23,7 +23,7 @@ let init = function(){
 
     // Asigno un texto a un elemento html mientra recibo los datos de la API.
     setTimeout(function(){
-      document.getElementById("show").textContent = "Mostrando h1";
+      $("#show").html("Mostrando h1");
     },1500);
 
 
